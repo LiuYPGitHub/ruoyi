@@ -202,6 +202,13 @@
 	            <artifactId>ruoyi-common</artifactId>
 	            <version>${ruoyi.version}</version>
 	        </dependency>
+
+			<!-- 热部署 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-devtools</artifactId>
+				<optional>true</optional>
+			</dependency>
 	        
         </dependencies>
     </dependencyManagement>
@@ -215,14 +222,6 @@
         <module>ruoyi-common</module>
     </modules>
     <packaging>pom</packaging>
-
-
-	<dependencies>
-
-		 
-
-	</dependencies>
-
 	<build>
         <plugins>
             <plugin>
@@ -234,7 +233,23 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+			<!-- 热部署-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
+
     </build>
 
 	<repositories>
