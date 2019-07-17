@@ -38,7 +38,13 @@ public class SysCourseServiceImpl implements ISysCourseService
      */
     @Override
     public List<SysCourse> selectCourseList(SysCourse course) {
-
         return courseMapper.selectCourseList(course);
+    }
+
+    /**
+     *查看详情页
+     */
+    public SysCourse editCourseCategory(Long courseId) {
+        return courseMapper.editCourseCategory(courseId);
     }
 }

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('用户列表')" />
+	<th:block th:include="include :: layout-latest-css" />
+</head>
+<body class="gray-bg">
+<div class="ui-layout-west">
+	<div class="main-content">
+		<div class="box box-main">
+			<div class="box-header">
+				<div class="box-title">
+					<i class="fa icon-grid">课程/COURSE</i>
+				</div>
+				<div class="box-tools pull-right"><br>
+					<button type="button" class="btn btn-link" onclick="sxjk()">身心健康</button><br>
+					<button type="button" class="btn btn-link" onclick="qzgx()">亲子关系</button><br>
+					<button type="button" class="btn btn-link" onclick="szpy()">素质培养</button><br>
+					<button type="button" class="btn btn-link" onclick="zyjn()">专业技能</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-div ui-layout-center">
+	<div class="row">
+		<div class="col-sm-12 select-table table-striped">
+			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+		</div>
+	</div>
+</div>
+
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: layout-latest-js" />
+<script th:inline="javascript">
+	var editFlag = [[${@permission.hasPermi('system:course:edit')}]];
+	var prefix = ctx + "system/course";
+
+	$(function() {
+		var panehHidden = false;
+		if ($(this).width() < 769) {
+			panehHidden = true;
+		}
+		$('body').layout({ initClosed: panehHidden, west__size: 185 });
+		queryCourseList();
+	});
+
+	function queryCourseList() {
+		var options = {
+			url: prefix + "/list",
+			columns: [
+				{
+					field: 'courseImage',
+					// title: '课程图片'
+				},
+				{
+					field: 'createTime',
+					// title: '创建时间'
+				},
+				{
+					field: 'courseName',
+					// title: '课程名称'
+				},
+				{
+					field: 'courseIntroduction',
+					// title: '课程简介'
+				},
+				{
+					// title: '了解详情',
+					align: 'center',
+					formatter: function(value, row, index) {
+						var actions = [];
+						actions.push('<a class="btn btn-large' + editFlag + '" href="javascript:void(0)" onclick="$.operate.editTab(\'' + row.courseId + '\')">了解详情</a> ');
+						return actions.join('');
+					}
+				}]
+		};
+		$.table.init(options);
+	}
+	$('#btnExpand').click(function() {
+		$._tree.expandAll(true);
+		$(this).hide();
+		$('#btnCollapse').show();
+	});
+
+	$('#btnCollapse').click(function() {
+		$._tree.expandAll(false);
+		$(this).hide();
+		$('#btnExpand').show();
+	});
+</script>
+</body>
+</html>

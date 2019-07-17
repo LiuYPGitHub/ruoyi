@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+	<th:block th:include="include :: header('用户列表')" />
+	<th:block th:include="include :: layout-latest-css" />
+</head>
+<body class="gray-bg">
+<div class="ui-layout-west">
+	<div class="main-content">
+
+	</div>
+</div>
+
+<div class="container-div ui-layout-center">
+	<div class="row">
+		<div class="col-sm-12 select-table table-striped">
+			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+		</div>
+	</div>
+</div>
+
+<th:block th:include="include :: footer" />
+<th:block th:include="include :: layout-latest-js" />
+<script th:inline="javascript">
+	var editFlag = [[${@permission.hasPermi('system:user:edit')}]];
+	var prefix = ctx + "system/course";
+
+	$(function() {
+		var panehHidden = false;
+		if ($(this).width() < 769) {
+			panehHidden = true;
+		}
+		$('body').layout({ initClosed: panehHidden, west__size: 185 });
+		queryCourseList();
+	});
+
+	function queryCourseList() {
+		var options = {
+			url: prefix + "/list",
+			columns: [
+				{
+					field: 'courseImage',
+					// title: '课程图片'
+				},
+				{
+					field: 'createTime',
+					// title: '创建时间'
+				},
+				{
+					field: 'courseName',
+					// title: '课程名称'
+				},
+				{
+					field: 'courseIntroduction',
+					// title: '课程简介'
+				},
+				{
+					field: 'remark',
+					// title: '备注'
+				},
+				{
+					field: 'updateTime',
+					// title: '课程简介'
+				},
+
+			]
+		};
+		$.table.init(options);
+	}
+</script>
+</body>
+</html>

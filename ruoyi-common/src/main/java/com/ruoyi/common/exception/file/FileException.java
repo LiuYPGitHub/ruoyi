@@ -2,9 +2,11 @@ package com.ruoyi.common.exception.file;
 
 import com.ruoyi.common.exception.base.BaseException;
 
+import java.io.Serializable;
+
 /**
  * 文件信息异常类
- * 
+ *
  * @author ruoyi
  */
 public class FileException extends BaseException
@@ -15,5 +17,4 @@ public class FileException extends BaseException
     {
         super("file", code, args, null);
     }
-
 }

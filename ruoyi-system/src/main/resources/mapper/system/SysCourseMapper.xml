@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SysCourseMapper">
+
+	<resultMap type="SysCourse" id="SysCourseResult">
+		<id     property="courseId"     column="course_id"     />
+		<result property="courseName"   column="course_name"   />
+		<result property="courseTime"  column="course_time"   />
+		<result property="courseCategory"   column="course_category"   />
+		<result property="courseIntroduction"   column="course_introduction"   />
+		<result property="courseImage"     column="course_image"      />
+		<result property="createBy"   column="create_by"   />
+		<result property="createTime" column="create_time" />
+		<result property="updateBy"   column="update_by"   />
+		<result property="updateTime" column="update_time" />
+	</resultMap>
+
+	<sql id="selectCoursetVo">
+        select course_id,course_name,course_time,course_category,course_introduction,course_image,create_by,create_time,update_by,update_time,remark
+		from course
+    </sql>
+
+	<select id="selectCourseList" parameterType="SysCourse" resultMap="SysCourseResult">
+		<include refid="selectCoursetVo"/>
+	</select>
+
+	<update id="editCourseCategory" parameterType="SysCourse">
+		<include refid="selectCoursetVo"/>
+		where course_id = #{courseId}
+	</update>
+</mapper>
