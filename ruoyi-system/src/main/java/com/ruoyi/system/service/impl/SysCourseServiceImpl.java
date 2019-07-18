@@ -42,9 +42,16 @@ public class SysCourseServiceImpl implements ISysCourseService
     }
 
     /**
-     *查看详情页
+     * 通过ID查询
      */
-    public SysCourse editCourseCategory(Long courseId) {
-        return courseMapper.editCourseCategory(courseId);
+    @Override
+    public SysCourse selectCourseById(Long courseId) {
+        return courseMapper.selectCourseById(courseId);
     }
+
+    @Override
+    public List<SysCourse> selectId(SysCourse courseId) {
+        return courseMapper.selectId(courseId);
+    }
+
 }

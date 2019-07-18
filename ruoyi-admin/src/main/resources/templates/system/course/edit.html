@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-	<th:block th:include="include :: header('用户列表')" />
+	<th:block th:include="include :: header('了解详情')" />
 	<th:block th:include="include :: layout-latest-css" />
 </head>
 <body class="gray-bg">
-<div class="ui-layout-west">
-	<div class="main-content">
-
-	</div>
-</div>
+<!--<div class="ui-layout-west">-->
+<!--	<div class="main-content">-->
+<!--		<div class="box box-main">-->
+<!--			<div class="box-header">-->
+<!--				<div class="box-title">-->
+<!--					<i class="fa icon-grid">课程/COURSE</i>-->
+<!--				</div>-->
+<!--				<div class="box-tools pull-right"><br>-->
+<!--					<button type="button" class="btn btn-link" onclick="sxjk()">身心健康</button><br>-->
+<!--					<button type="button" class="btn btn-link" onclick="qzgx()">亲子关系</button><br>-->
+<!--					<button type="button" class="btn btn-link" onclick="szpy()">素质培养</button><br>-->
+<!--					<button type="button" class="btn btn-link" onclick="zyjn()">专业技能</button>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+<!--</div>-->
 
 <div class="container-div ui-layout-center">
 	<div class="row">
@@ -19,10 +31,10 @@
 	</div>
 </div>
 
-<th:block th:include="include :: footer" />
+<<th:block th:include="include :: footer" />
 <th:block th:include="include :: layout-latest-js" />
 <script th:inline="javascript">
-	var editFlag = [[${@permission.hasPermi('system:user:edit')}]];
+	var editFlag = [[${@permission.hasPermi('system:course:edit')}]];
 	var prefix = ctx + "system/course";
 
 	$(function() {
@@ -36,7 +48,7 @@
 
 	function queryCourseList() {
 		var options = {
-			url: prefix + "/list",
+			url: prefix + "/listId",
 			columns: [
 				{
 					field: 'courseImage',
@@ -53,17 +65,7 @@
 				{
 					field: 'courseIntroduction',
 					// title: '课程简介'
-				},
-				{
-					field: 'remark',
-					// title: '备注'
-				},
-				{
-					field: 'updateTime',
-					// title: '课程简介'
-				},
-
-			]
+				}]
 		};
 		$.table.init(options);
 	}

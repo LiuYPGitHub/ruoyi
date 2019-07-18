@@ -26,8 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectCoursetVo"/>
 	</select>
 
-	<update id="editCourseCategory" parameterType="SysCourse">
+	<select id="selectCourseById" parameterType="SysCourse" resultMap="SysCourseResult">
 		<include refid="selectCoursetVo"/>
 		where course_id = #{courseId}
-	</update>
+	</select>
+
+	<select id="selectId" parameterType="SysCourse" resultMap="SysCourseResult">
+		<include refid="selectCoursetVo"/>
+		where course_id = #{courseId}
+	</select>
 </mapper>

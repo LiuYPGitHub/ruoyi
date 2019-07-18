@@ -12,5 +12,7 @@ public interface SysCourseMapper
 {
     List<SysCourse> selectCourseList(SysCourse course);
 
-    SysCourse editCourseCategory(Long courseId);
+    SysCourse selectCourseById(Long courseId);
+
+    List<SysCourse> selectId(SysCourse courseId);
 }

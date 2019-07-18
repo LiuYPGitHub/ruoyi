@@ -30,6 +30,11 @@ public class SysCourseController extends BaseController
         return prefix + "/course";
     }
 
+    /**
+     * 查所有
+     * @param course
+     * @return
+     */
     @RequiresPermissions("system:course:list")
     @PostMapping("/list")
     @ResponseBody
@@ -40,10 +45,23 @@ public class SysCourseController extends BaseController
         return getDataTable(list);
     }
 
+    /**
+     * 查出id
+     */
     @GetMapping("/edit/{courseId}")
     public String edit(@PathVariable("courseId") Long courseId, ModelMap mmap)
     {
-        mmap.put("courseId", courseService.editCourseCategory(courseId));
+        mmap.put("course", courseService.selectCourseById(courseId));
         return prefix + "/edit";
     }
+
+    @RequiresPermissions("system:course:listId")
+    @PostMapping("/listId{courseId}")
+    @ResponseBody
+    public SysCourse listId(@PathVariable("courseId") SysCourse courseId)
+    {
+        List<SysCourse> list = courseService.selectId(courseId);
+        return (SysCourse) list;
+    }
+
 }

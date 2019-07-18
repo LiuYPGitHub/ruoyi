@@ -15,7 +15,11 @@ public interface ISysCourseService
     List<SysCourse> selectCourseList(SysCourse course);
 
     /**
-     * 查看详情页
+     *
+     * @param courseId
+     * @return
      */
-    SysCourse editCourseCategory(Long courseId);
+    SysCourse selectCourseById(Long courseId);
+
+    List<SysCourse> selectId(SysCourse courseId);
 }
