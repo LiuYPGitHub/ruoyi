@@ -14,12 +14,5 @@ public interface ISysCourseService
      */
     List<SysCourse> selectCourseList(SysCourse course);
 
-    /**
-     *
-     * @param courseId
-     * @return
-     */
     SysCourse selectCourseById(Long courseId);
-
-    List<SysCourse> selectId(SysCourse courseId);
 }
