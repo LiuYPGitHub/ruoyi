@@ -46,13 +46,13 @@ public class SysCourseController extends BaseController
     /**
      * 按id查
      */
-    @RequiresPermissions("system:course:edit")
-    @GetMapping("/edit/{courseId}")
+    @RequiresPermissions("system:course:selectId")
+    @GetMapping("/selectId/{courseId}")
     @ResponseBody
-    public String edit(@PathVariable("courseId") Long courseId, ModelMap mmap)
+    public String selectId(@PathVariable("courseId") Long courseId, ModelMap mmap)
     {
         mmap.put("course", courseService.selectCourseById(courseId));
-        return prefix + "/edit";
+        return prefix + "/selectId";
     }
 
 }

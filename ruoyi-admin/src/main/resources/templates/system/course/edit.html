@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <th:block th:include="include :: header('修改用户')" />
+    <th:block th:include="include :: header('课程详情')" />
     <th:block th:include="include :: select2-css" />
 </head>
 <body>
 <div class="form-content">
     <form class="form-horizontal" id="form-user-edit" th:object="${course}">
         <input name="userId"  type="hidden"  th:field="*{courseId}" />
-        <h4 class="form-header h4">基本信息</h4>
+        <h4 class="form-header h4">课程信息</h4>
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>课程ID：</label>
+                    <label class="col-sm-4 control-label"><span style="color: red; ">*</span>课程简介：</label>
                     <div class="col-sm-8">
-                        <input name="courseId" class="form-control" type="text" maxlength="30" th:field="*{courseId}" required>
+                        <input name="courseIntroduction" class="form-control" type="text" maxlength="30" th:field="*{courseIntroduction}" required>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
                     <label class="col-sm-4 control-label"><span style=" color: red; ">*</span>课程名称：</label>
@@ -34,7 +32,6 @@
 <th:block th:include="include :: footer" />
 <th:block th:include="include :: select2-js" />
 <script type="text/javascript">
-    var prefix = ctx + "system/course";
 
 </script>
 </body>
