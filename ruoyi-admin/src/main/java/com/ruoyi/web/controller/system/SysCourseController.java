@@ -31,7 +31,7 @@ public class SysCourseController extends BaseController
     }
 
     /**
-     * 查count
+     * count
      */
     @RequiresPermissions("system:course:list")
     @PostMapping("/list")
@@ -54,4 +54,5 @@ public class SysCourseController extends BaseController
         mmap.put("course", courseService.selectCourseById(courseId));
         return prefix + "/edit";
     }
+
 }

@@ -15,4 +15,5 @@ public interface ISysCourseService
     List<SysCourse> selectCourseList(SysCourse course);
 
     SysCourse selectCourseById(Long courseId);
+
 }
