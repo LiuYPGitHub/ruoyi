@@ -20,20 +20,30 @@ public class SysClassificationServiceImpl implements ISysClassificationService {
 
     @Autowired
     private SysClassificationMapper sysClassificationMapper;
+
+    /**
+     * 查课程
+     */
+    @Override
+    @DataScope(tableAlias = "c")
+    public List<SysClassification> selectClassificationList(SysClassification classification)
+    {
+        return sysClassificationMapper.selectSysClassificationList(classification);
+    }
+
     /**
      * 查询课程理树
      */
     @Override
-    @DataScope(tableAlias = "d")
-    public List<Ztree> selectClassificationTree(SysClassification classification) {
-        List<SysClassification> deptList = sysClassificationMapper.selectSysClassificationList(classification);
-        List<Ztree> ztrees = initZtree(deptList);
-        return ztrees;
+    @DataScope(tableAlias = "c")
+    public List<Ztree> selectSysClassificationTree(SysClassification classification)
+    {
+        List<SysClassification> classificationList = sysClassificationMapper.selectSysClassificationTree(classification);
+        return initZtree(classificationList);
     }
 
     /**
      * 对象转课程树
-     *
      * @param classificationList 课程列表
      * @return 树结构列表
      */
@@ -49,8 +59,8 @@ public class SysClassificationServiceImpl implements ISysClassificationService {
      * @param roleDeptList 角色已存在菜单列表
      * @return 树结构列表
      */
-    public List<Ztree> initZtree(List<SysClassification> classificationListList, List<String> roleDeptList) {
-
+    public List<Ztree> initZtree(List<SysClassification> classificationListList, List<String> roleDeptList)
+    {
         List<Ztree> ztrees = new ArrayList<Ztree>();
         boolean isCheck = StringUtils.isNotNull(roleDeptList);
         for (SysClassification classification : classificationListList) {
@@ -61,7 +71,6 @@ public class SysClassificationServiceImpl implements ISysClassificationService {
                 ztree.setChecked(roleDeptList.contains(classification.getTypeId() + classification.getTypeName()));
             }
             ztrees.add(ztree);
-
         }
         return ztrees;
     }

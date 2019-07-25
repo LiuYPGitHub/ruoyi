@@ -13,6 +13,9 @@
                 <div class="box-title">
                     <i class="fa icon-grid">课程/COURSE</i>
                 </div>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新课程类别"><i class="fa fa-refresh"></i></button>
+                </div>
                 <!--				<div class="box-tools pull-right"><br>-->
                 <!--					<button type="button" id="身心健康" class="btn btn-link" onclick="sxjk()">身心健康</button><br>-->
                 <!--					<button type="button" class="btn btn-link" onclick="qzgx()">亲子关系</button><br>-->
@@ -43,7 +46,6 @@
 <script th:inline="javascript">
     var editFlag = [[${@permission.hasPermi('system:course:selectId')}]];
     var prefix = ctx + "system/course";
-
     $(function () {
         var panehHidden = false;
         if ($(this).width() < 769) {
@@ -55,7 +57,7 @@
     });
 
     /**
-     *
+     *列表
      * */
     function queryCourseList() {
         var options = {
@@ -94,43 +96,36 @@
     }
 
     /**
-     * 树形图
+     * 树形图初始化
      */
-
     function classificationTree() {
-        var url = ctx + "system/dept/treeData";
+        var url = ctx + "system/Classification/treeClassification";
         var options = {
             url: url,
-            expandLevel: 2,
+            expandLevel: 0,
             onClick: zOnClick
         };
         $.tree.init(options);
 
+        /**
+         *tree点击事件
+         */
         function zOnClick(event, treeId, treeNode) {
-            $("#deptId").val(treeNode.id);
-            $("#parentId").val(treeNode.pId);
+            $("#courseCategory").val(treeNode.name);
+            // $("#parentId").val(treeNode.pId);
             $.table.search();
         }
     }
 
-    $('#btnExpand').click(function() {
-        $._tree.expandAll(true);
-        $(this).hide();
-        $('#btnCollapse').show();
-    });
-
-    $('#btnCollapse').click(function() {
-        $._tree.expandAll(false);
-        $(this).hide();
-        $('#btnExpand').show();
-    });
-
+    /**
+     * 刷新课程树
+     */
     $('#btnRefresh').click(function() {
         classificationTree();
     });
 
     /**
-     * 传统异步刷新
+     * 传统异步刷新-测试中
      */
     // function sxjk() {
     //

@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.SysClassificationMapper">
 
+    <resultMap type="SysClassification" id="SysClassificationResult">
+        <id property="typeId" column="type_id"/>
+        <result property="typeName" column="type_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
 
+    <!--  类别名称  -->
+    <sql id="selectClassificationVo">
+        select c.type_name
+        from classification c
+    </sql>
 
+    <!--  tree  -->
+    <select id="selectSysClassificationTree" parameterType="SysClassification" resultMap="SysClassificationResult">
+        <include refid="selectClassificationVo"/>
+    </select>
+
+    <!--  ree单点查询  -->
+    <select id="selectClassificationList" parameterType="SysClassification" resultMap="SysClassificationResult">
+        select
+        c.course_id,c.course_name,c.course_time,c.course_category,c.course_introduction,c.course_image,c.create_by,c.create_time,c.update_by,c.update_time,c.remark
+        from course c
+        left join classification f on c.course_category = f.type_name
+        <if test="typeName != null and typeName != 0">
+            where c.course_category = #{typeName}
+        </if>
+        <!-- 数据范围过滤 -->
+        <!-- ${params.dataScope} -->
+    </select>
 </mapper>

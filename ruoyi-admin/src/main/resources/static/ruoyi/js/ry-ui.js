@@ -834,11 +834,6 @@
             	}
             },
 
-			//--------------
-			editCourse: function(id) {
-				$.modal.openTab($.table._option.modalName, $.operate.editUrl(id));
-			},
-
             // 修改信息，以tab页展现
             editTab: function(id) {
             	$.modal.openTab("修改" + $.table._option.modalName, $.operate.editUrl(id));

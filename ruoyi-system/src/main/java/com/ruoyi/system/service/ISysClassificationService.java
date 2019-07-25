@@ -12,9 +12,13 @@ import java.util.List;
 public interface ISysClassificationService {
 
     /**
-     * 查询课程树
-     * @return
+     * 查课程
      */
-    @DataScope(tableAlias = "d")
-    List<Ztree> selectClassificationTree(SysClassification classification);
+    List<SysClassification> selectClassificationList(SysClassification classification);
+
+    /**
+     * 查询课程树
+     */
+    @DataScope(tableAlias = "c")
+    List<Ztree> selectSysClassificationTree(SysClassification classification);
 }

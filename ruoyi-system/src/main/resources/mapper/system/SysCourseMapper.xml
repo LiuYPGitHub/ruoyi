@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.system.mapper.SysCourseMapper">
 
-	<resultMap type="SysCourse" id="SysCourseResult">
-		<id     property="courseId"     column="course_id"     />
-		<result property="courseName"   column="course_name"   />
-		<result property="courseTime"  column="course_time"   />
-		<result property="courseCategory"   column="course_category"   />
-		<result property="courseIntroduction"   column="course_introduction"   />
-		<result property="courseImage"     column="course_image"      />
-		<result property="createBy"   column="create_by"   />
-		<result property="createTime" column="create_time" />
-		<result property="updateBy"   column="update_by"   />
-		<result property="updateTime" column="update_time" />
-	</resultMap>
+    <resultMap type="SysCourse" id="SysCourseResult">
+        <id property="courseId" column="course_id"/>
+        <result property="courseName" column="course_name"/>
+        <result property="courseTime" column="course_time"/>
+        <result property="courseCategory" column="course_category"/>
+        <result property="courseIntroduction" column="course_introduction"/>
+        <result property="courseImage" column="course_image"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
 
-	<sql id="selectCoursetVo">
+    <sql id="selectCoursetVo">
         select course_id,course_name,course_time,course_category,course_introduction,course_image,create_by,create_time,update_by,update_time,remark
 		from course
     </sql>
 
-	<select id="selectCourseList" parameterType="SysCourse" resultMap="SysCourseResult">
-		<include refid="selectCoursetVo"/>
-	</select>
+    <select id="selectCourseList" parameterType="SysCourse" resultMap="SysCourseResult">
+        select c.course_id,c.course_name,c.course_time,c.course_category,c.course_introduction,c.course_image,c.create_by,c.create_time,c.update_by,c.update_time,c.remark
+        from course c
+        left join classification f on c.course_category = f.type_name
+        where c.del_flag = '0'
+        <if test="courseCategory != null and courseCategory != 0">
+            AND c.course_category = #{courseCategory}
+        </if>
+    </select>
 
-	<select id="selectCourseById" parameterType="Long" resultMap="SysCourseResult">
-		<include refid="selectCoursetVo"/>
-		where course_id = #{courseId}
-	</select>
+    <select id="selectCourseById" parameterType="Long" resultMap="SysCourseResult">
+        <include refid="selectCoursetVo"/>
+        where course_id = #{courseId}
+    </select>
 
 </mapper>
